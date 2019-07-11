@@ -5,7 +5,7 @@ const firebase = require("firebase");
 const firebaseConfig = require("./config/firebaseConfig");
 const FBAuth = require("./utils/FBAuth");
 const { getAllPosts, createPost } = require("./handlers/posts");
-const { registerUser, loginUser } = require("./handlers/users");
+const { registerUser, loginUser, uploadImage } = require("./handlers/users");
 
 firebase.initializeApp(firebaseConfig);
 
@@ -28,5 +28,10 @@ app.post("/register", registerUser);
 // @desc   Login / Вход
 // @access Public
 app.post("/login", loginUser);
+
+// @route  GET api/user/image
+// @desc   Upload image / Загрузить картинку
+// @access Private
+app.post("/login", FBAuth, uploadImage);
 
 exports.api = functions.region("europe-west1").https.onRequest(app);

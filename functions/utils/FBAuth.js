@@ -1,4 +1,4 @@
-const { admin } = require("./admin");
+const { admin, db } = require("./admin");
 
 // Firebase Auth Middleware
 module.exports = (req, res, next) => {
