@@ -3,6 +3,7 @@ const firebase = require("firebase");
 const emptyString = require("../validation/emptyString");
 const isEmail = require("../validation/isEmail");
 const firebaseConfig = require("../config/firebaseConfig");
+const reduceUserDetails = require("../validation/reduceUserDetails");
 
 exports.registerUser = (req, res) => {
   const newUser = {
@@ -127,6 +128,20 @@ exports.loginUser = (req, res) => {
       } else {
         return res.status(500).json({ error: err.code });
       }
+    });
+};
+
+exports.addUserDetails = (req, res) => {
+  let userDetails = reduceUserDetails(req.body);
+
+  db.doc(`/users/${req.user.handle}`)
+    .update(userDetails)
+    .then(() => {
+      return res.json({ message: "Details added successfully" });
+    })
+    .catch(err => {
+      console.err(err);
+      return res.status(500).json({ message: err.code });
     });
 };
 

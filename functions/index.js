@@ -5,7 +5,12 @@ const firebase = require("firebase");
 const firebaseConfig = require("./config/firebaseConfig");
 const FBAuth = require("./utils/FBAuth");
 const { getAllPosts, createPost } = require("./handlers/posts");
-const { registerUser, loginUser, uploadImage } = require("./handlers/users");
+const {
+  registerUser,
+  loginUser,
+  uploadImage,
+  addUserDetails
+} = require("./handlers/users");
 
 firebase.initializeApp(firebaseConfig);
 
@@ -19,19 +24,24 @@ app.get("/posts", getAllPosts);
 // @access Private
 app.post("/post", FBAuth, createPost);
 
-// @route  GET api/register
+// @route  POST api/register
 // @desc   Registration / Регистрация
 // @access Public
 app.post("/register", registerUser);
 
-// @route  GET api/login
+// @route  POST api/login
 // @desc   Login / Вход
 // @access Public
 app.post("/login", loginUser);
 
-// @route  GET api/user/image
+// @route  POST api/user/image
 // @desc   Upload image / Загрузить картинку
 // @access Private
-app.post("/login", FBAuth, uploadImage);
+app.post("/user/image", FBAuth, uploadImage);
+
+// @route  POST api/user
+// @desc   Add details / Добавляет детали к профилю
+// @access Private
+app.post("/user", FBAuth, addUserDetails);
 
 exports.api = functions.region("europe-west1").https.onRequest(app);
