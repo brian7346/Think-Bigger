@@ -4,7 +4,12 @@ const app = express();
 const firebase = require("firebase");
 const firebaseConfig = require("./config/firebaseConfig");
 const FBAuth = require("./utils/FBAuth");
-const { getAllPosts, createPost, getPost } = require("./handlers/posts");
+const {
+  getAllPosts,
+  createPost,
+  getPost,
+  commentOnPost
+} = require("./handlers/posts");
 const {
   registerUser,
   loginUser,
@@ -54,5 +59,10 @@ app.post("/post", FBAuth, createPost);
 // @desc   Get post by id / Получение поста по id
 // @access Public
 app.get("/post/:postId", getPost);
+
+// @route  POST /post/:postId/comment
+// @desc   Create comment / Создание комента
+// @access Private
+app.post("/post/:postId/comment", FBAuth, commentOnPost);
 
 exports.api = functions.region("europe-west1").https.onRequest(app);
