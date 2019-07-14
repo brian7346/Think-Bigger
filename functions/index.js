@@ -4,15 +4,41 @@ const app = express();
 const firebase = require("firebase");
 const firebaseConfig = require("./config/firebaseConfig");
 const FBAuth = require("./utils/FBAuth");
-const { getAllPosts, createPost } = require("./handlers/posts");
+const { getAllPosts, createPost, getPost } = require("./handlers/posts");
 const {
   registerUser,
   loginUser,
   uploadImage,
-  addUserDetails
+  addUserDetails,
+  getAuthenticatedUser
 } = require("./handlers/users");
 
 firebase.initializeApp(firebaseConfig);
+
+// @route  POST api/register
+// @desc   Registration / Регистрация
+// @access Public
+app.post("/register", registerUser);
+
+// @route  POST /login
+// @desc   Login / Вход
+// @access Public
+app.post("/login", loginUser);
+
+// @route  POST /user/image
+// @desc   Upload image / Загрузить картинку
+// @access Private
+app.post("/user/image", FBAuth, uploadImage);
+
+// @route  POST /user
+// @desc   Add details / Добавляет детали к профилю
+// @access Private
+app.post("/user", FBAuth, addUserDetails);
+
+// @route  GET /user
+// @desc   Get Auth user / Получает пользователя, который вошел
+// @access Private
+app.get("/user", FBAuth, getAuthenticatedUser);
 
 // @route  GET /posts
 // @desc   Get posts / Получение всех постов
@@ -24,24 +50,9 @@ app.get("/posts", getAllPosts);
 // @access Private
 app.post("/post", FBAuth, createPost);
 
-// @route  POST api/register
-// @desc   Registration / Регистрация
+// @route  GET /post/:postId
+// @desc   Get post by id / Получение поста по id
 // @access Public
-app.post("/register", registerUser);
-
-// @route  POST api/login
-// @desc   Login / Вход
-// @access Public
-app.post("/login", loginUser);
-
-// @route  POST api/user/image
-// @desc   Upload image / Загрузить картинку
-// @access Private
-app.post("/user/image", FBAuth, uploadImage);
-
-// @route  POST api/user
-// @desc   Add details / Добавляет детали к профилю
-// @access Private
-app.post("/user", FBAuth, addUserDetails);
+app.get("/post/:postId", getPost);
 
 exports.api = functions.region("europe-west1").https.onRequest(app);
