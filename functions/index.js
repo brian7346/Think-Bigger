@@ -8,7 +8,9 @@ const {
   getAllPosts,
   createPost,
   getPost,
-  commentOnPost
+  commentOnPost,
+  likePost,
+  unlikePost
 } = require("./handlers/posts");
 const {
   registerUser,
@@ -64,5 +66,15 @@ app.get("/post/:postId", getPost);
 // @desc   Create comment / Создание комента
 // @access Private
 app.post("/post/:postId/comment", FBAuth, commentOnPost);
+
+// @route  GET /post/:postId/like
+// @desc  Like post / Поставить лайк
+// @access Private
+app.get("/post/:postId/like", FBAuth, likePost);
+
+// @route  GET /post/:postId/unlike
+// @desc  Unlike post / Поставить лайк
+// @access Private
+app.get("/post/:postId/unlike", FBAuth, unlikePost);
 
 exports.api = functions.region("europe-west1").https.onRequest(app);
