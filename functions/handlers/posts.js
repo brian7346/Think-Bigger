@@ -93,6 +93,9 @@ exports.commentOnPost = (req, res) => {
         return res.status(404).json({ error: "Post not found" });
       }
 
+      return doc.ref.update({ commentCount: doc.data().commentCount + 1 });
+    })
+    .then(() => {
       return db.collection("comments").add(newComment);
     })
     .then(() => {
