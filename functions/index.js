@@ -10,7 +10,8 @@ const {
   getPost,
   commentOnPost,
   likePost,
-  unlikePost
+  unlikePost,
+  deletePost
 } = require("./handlers/posts");
 const {
   registerUser,
@@ -76,5 +77,10 @@ app.get("/post/:postId/like", FBAuth, likePost);
 // @desc  Unlike post / Поставить лайк
 // @access Private
 app.get("/post/:postId/unlike", FBAuth, unlikePost);
+
+// @route  DELETE /post/:postId
+// @desc  Delete post / Удалить пост
+// @access Private
+app.delete("/post/:postId", FBAuth, deletePost);
 
 exports.api = functions.region("europe-west1").https.onRequest(app);
