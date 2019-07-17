@@ -5,15 +5,14 @@ import Grid from "@material-ui/core/Grid";
 import { Post } from "components/";
 
 export default function Home() {
-  const [posts, changePost] = useState(null);
+  const [posts, setPost] = useState(null);
 
-  const handlePosts = data => changePost(data);
+  const handlePosts = data => setPost(data);
 
   useEffect(() => {
     axios
       .get("/posts")
       .then(res => {
-        console.log(res.data);
         handlePosts(res.data);
       })
       .catch(err => {
