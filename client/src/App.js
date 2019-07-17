@@ -3,33 +3,32 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
+import themeFile from "utils/theme";
+import jwtDecode from "jwt-decode";
+
 // Components
 // Компоненты
-import { Navbar } from "components/";
+import { Navbar, AuthRoute } from "components/";
 
 // Pages
 // Страницы
 import { Home, Login, Register } from "pages/";
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      light: "#2196f3",
-      main: "#2196f3",
-      dark: "#0d47a1",
-      contrastText: "#fff"
-    },
-    secondary: {
-      light: "#ff6333",
-      main: "#ff3d00",
-      dark: "#b22a00",
-      contrastText: "#fff"
-    }
-  },
-  typography: {
-    useNextVariants: true
+const theme = createMuiTheme(themeFile);
+
+const token = localStorage.FBIdToken;
+
+let authenticated;
+if (token) {
+  const decodedToken = jwtDecode(token);
+
+  if (decodedToken.exp * 1000 < Date.now()) {
+    window.location.href = "/login";
+    authenticated = false;
+  } else {
+    authenticated = true;
   }
-});
+}
 
 function App() {
   return (
@@ -40,8 +39,18 @@ function App() {
           <div className="container">
             <Switch>
               <Route exact path="/" component={Home} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/register" component={Register} />
+              <AuthRoute
+                exact
+                path="/login"
+                component={Login}
+                authenticated={authenticated}
+              />
+              <AuthRoute
+                exact
+                path="/register"
+                component={Register}
+                authenticated={authenticated}
+              />
             </Switch>
           </div>
         </Router>

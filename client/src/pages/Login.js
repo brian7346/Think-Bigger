@@ -9,7 +9,7 @@ import Button from "@material-ui/core/Button";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const styles = {
+const styles = theme => ({
   form: {
     textAlign: "center"
   },
@@ -24,18 +24,17 @@ const styles = {
     position: "relative"
   },
   customError: {
-    color: "red",
+    // color: "red",
     fontSize: "0.8rem",
     marginTop: 10
   },
   progress: {
     position: "absolute"
   }
-};
+});
 
 function Login(props) {
   const { classes } = props;
-  console.log(props);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -49,6 +48,7 @@ function Login(props) {
   const handleSubmit = event => {
     event.preventDefault();
     // Set loading to true
+    // Включаем загрузку
     handleLoading(true);
 
     const userData = {
@@ -59,13 +59,15 @@ function Login(props) {
     axios
       .post("/login", userData)
       .then(res => {
-        console.log(res.data);
-        //Set Loading to false
+        // Set Loading to false
+        // Выключаем загрузку
         handleLoading(false);
+        localStorage.setItem("FBIdToken", `Bearer ${res.data.token}`);
         props.history.push("/");
       })
       .catch(err => {
         //Set Loading to false
+        // Выключаем загрузку
         handleLoading(false);
         handleErrors(err.response.data);
       });
