@@ -36,16 +36,15 @@ const styles = theme => ({
 });
 
 function Login(props) {
-  const user = useSelector(state => state.user);
+  const { classes } = props;
+
   const UI = useSelector(state => state.UI);
   const { loading } = UI;
   const { errors } = UI;
   const dispatch = useDispatch();
 
-  const { classes } = props;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [errors, setErrors] = useState({});
 
   const handleEmail = event => setEmail(event.target.value);
   const handlePassword = event => setPassword(event.target.value);
@@ -54,31 +53,13 @@ function Login(props) {
 
   const handleSubmit = event => {
     event.preventDefault();
-    // Set loading to true
-    // Включаем загрузку
-    // handleLoading(true);
 
     const userData = {
       email,
       password
     };
-    dispatch(loginUserAction(userData, props.history));
 
-    // axios
-    //   .post("/login", userData)
-    //   .then(res => {
-    //     // Set Loading to false
-    //     // Выключаем загрузку
-    //     handleLoading(false);
-    //     localStorage.setItem("FBIdToken", `Bearer ${res.data.token}`);
-    //     props.history.push("/");
-    //   })
-    //   .catch(err => {
-    //     //Set Loading to false
-    //     // Выключаем загрузку
-    //     handleLoading(false);
-    //     handleErrors(err.response.data);
-    //   });
+    dispatch(loginUserAction(userData, props.history));
   };
   return (
     <Grid container className={classes.form}>
