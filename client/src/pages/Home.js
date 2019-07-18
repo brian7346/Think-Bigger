@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import Grid from "@material-ui/core/Grid";
 
 import { Post } from "components/";
 
 export default function Home() {
+  const user = useSelector(state => state.user);
+  const dispatch = useDispatch();
+
   const [posts, setPost] = useState(null);
 
   const handlePosts = data => setPost(data);

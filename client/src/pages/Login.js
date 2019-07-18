@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import withStyles from "@material-ui/core/styles/withStyles";
 import PropTypes from "prop-types";
 import Grid from "@material-ui/core/Grid";
@@ -7,7 +8,8 @@ import TextField from "@material-ui/core/TextField";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+import { loginUserAction } from "actions/userActions";
 
 const styles = theme => ({
   form: {
@@ -24,7 +26,7 @@ const styles = theme => ({
     position: "relative"
   },
   customError: {
-    // color: "red",
+    color: "red",
     fontSize: "0.8rem",
     marginTop: 10
   },
@@ -34,43 +36,49 @@ const styles = theme => ({
 });
 
 function Login(props) {
+  const user = useSelector(state => state.user);
+  const UI = useSelector(state => state.UI);
+  const { loading } = UI;
+  const { errors } = UI;
+  const dispatch = useDispatch();
+
   const { classes } = props;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState({});
+  // const [errors, setErrors] = useState({});
 
   const handleEmail = event => setEmail(event.target.value);
   const handlePassword = event => setPassword(event.target.value);
-  const handleLoading = data => setLoading(data);
-  const handleErrors = data => setErrors(data);
+
+  console.log("props", props);
 
   const handleSubmit = event => {
     event.preventDefault();
     // Set loading to true
     // Включаем загрузку
-    handleLoading(true);
+    // handleLoading(true);
 
     const userData = {
       email,
       password
     };
+    dispatch(loginUserAction(userData, props.history));
 
-    axios
-      .post("/login", userData)
-      .then(res => {
-        // Set Loading to false
-        // Выключаем загрузку
-        handleLoading(false);
-        localStorage.setItem("FBIdToken", `Bearer ${res.data.token}`);
-        props.history.push("/");
-      })
-      .catch(err => {
-        //Set Loading to false
-        // Выключаем загрузку
-        handleLoading(false);
-        handleErrors(err.response.data);
-      });
+    // axios
+    //   .post("/login", userData)
+    //   .then(res => {
+    //     // Set Loading to false
+    //     // Выключаем загрузку
+    //     handleLoading(false);
+    //     localStorage.setItem("FBIdToken", `Bearer ${res.data.token}`);
+    //     props.history.push("/");
+    //   })
+    //   .catch(err => {
+    //     //Set Loading to false
+    //     // Выключаем загрузку
+    //     handleLoading(false);
+    //     handleErrors(err.response.data);
+    //   });
   };
   return (
     <Grid container className={classes.form}>
@@ -136,7 +144,8 @@ function Login(props) {
 }
 
 Login.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Login);
+export default withRouter(withStyles(styles)(Login));

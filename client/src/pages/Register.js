@@ -24,7 +24,7 @@ const styles = theme => ({
     position: "relative"
   },
   customError: {
-    // color: "red",
+    color: "red",
     fontSize: "0.8rem",
     marginTop: 10
   },
