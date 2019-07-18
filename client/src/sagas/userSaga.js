@@ -8,6 +8,8 @@ import {
 } from "actions/types";
 import { tryLoginUserAction, getUserDataAction } from "actions/userActions";
 
+// Login User
+// Вход пользователя на сайт
 function* setUserAsync(action) {
   yield put({ type: LOADING_UI });
   try {
