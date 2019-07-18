@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import withStyles from "@material-ui/core/styles/withStyles";
 import PropTypes from "prop-types";
@@ -9,6 +9,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Button from "@material-ui/core/Button";
 import { Link, withRouter } from "react-router-dom";
 import { registerUserAction } from "actions/userActions";
+import { CLEAR_ERRORS } from "actions/types";
 
 const styles = theme => ({
   form: {
@@ -46,15 +47,11 @@ function Register(props) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [handle, setHandle] = useState("");
-  // const [loading, setLoading] = useState(false);
-  // const [errors, setErrors] = useState({});
 
   const handleEmail = event => setEmail(event.target.value);
   const handlePassword = event => setPassword(event.target.value);
   const handleConfirmPassword = event => setConfirmPassword(event.target.value);
   const handleHandle = event => setHandle(event.target.value);
-  // const handleLoading = data => setLoading(data);
-  // const handleErrors = data => setErrors(data);
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -68,6 +65,13 @@ function Register(props) {
 
     dispatch(registerUserAction(newUserData, props.history));
   };
+
+  useEffect(() => {
+    return () => {
+      dispatch({ type: CLEAR_ERRORS });
+    };
+  }, []);
+
   return (
     <Grid container className={classes.form}>
       <Grid item sm />

@@ -15,7 +15,6 @@ export const loginUserAction = (userData, history) => dispatch => {
     .then(res => {
       setAuthorizationHeader(res.data.token);
       dispatch(getUserData());
-      dispatch({ type: CLEAR_ERRORS });
       history.push("/");
     })
     .catch(err => {
@@ -33,7 +32,6 @@ export const registerUserAction = (newUserData, history) => dispatch => {
     .then(res => {
       setAuthorizationHeader(res.data.token);
       dispatch(getUserData());
-      dispatch({ type: CLEAR_ERRORS });
       history.push("/");
     })
     .catch(err => {

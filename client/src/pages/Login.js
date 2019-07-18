@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import withStyles from "@material-ui/core/styles/withStyles";
 import PropTypes from "prop-types";
@@ -7,9 +7,9 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Button from "@material-ui/core/Button";
-import axios from "axios";
 import { Link, withRouter } from "react-router-dom";
 import { loginUserAction } from "actions/userActions";
+import { CLEAR_ERRORS } from "actions/types";
 
 const styles = theme => ({
   form: {
@@ -49,8 +49,6 @@ function Login(props) {
   const handleEmail = event => setEmail(event.target.value);
   const handlePassword = event => setPassword(event.target.value);
 
-  console.log("props", props);
-
   const handleSubmit = event => {
     event.preventDefault();
 
@@ -61,6 +59,12 @@ function Login(props) {
 
     dispatch(loginUserAction(userData, props.history));
   };
+
+  useEffect(() => {
+    return () => {
+      dispatch({ type: CLEAR_ERRORS });
+    };
+  }, []);
   return (
     <Grid container className={classes.form}>
       <Grid item sm />
