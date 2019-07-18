@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import withStyles from "@material-ui/core/styles/withStyles";
 import PropTypes from "prop-types";
 import Grid from "@material-ui/core/Grid";
@@ -6,8 +7,8 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Button from "@material-ui/core/Button";
-import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+import { registerUserAction } from "actions/userActions";
 
 const styles = theme => ({
   form: {
@@ -35,48 +36,37 @@ const styles = theme => ({
 
 function Register(props) {
   const { classes } = props;
+
+  const UI = useSelector(state => state.UI);
+  const { loading } = UI;
+  const { errors } = UI;
+  const dispatch = useDispatch();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [handle, setHandle] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState({});
+  // const [loading, setLoading] = useState(false);
+  // const [errors, setErrors] = useState({});
 
   const handleEmail = event => setEmail(event.target.value);
   const handlePassword = event => setPassword(event.target.value);
   const handleConfirmPassword = event => setConfirmPassword(event.target.value);
   const handleHandle = event => setHandle(event.target.value);
-  const handleLoading = data => setLoading(data);
-  const handleErrors = data => setErrors(data);
+  // const handleLoading = data => setLoading(data);
+  // const handleErrors = data => setErrors(data);
 
   const handleSubmit = event => {
     event.preventDefault();
-    // Set loading to true
-    // Включаем загрузку
-    handleLoading(true);
 
-    const newuserData = {
+    const newUserData = {
       email,
       password,
       confirmPassword,
       handle
     };
 
-    axios
-      .post("/register", newuserData)
-      .then(res => {
-        // Set Loading to false
-        // Выключаем загрузку
-        handleLoading(false);
-        localStorage.setItem("FBIdToken", `Bearer ${res.data.token}`);
-        props.history.push("/");
-      })
-      .catch(err => {
-        //Set Loading to false
-        // Выключаем загрузку
-        handleLoading(false);
-        handleErrors(err.response.data);
-      });
+    dispatch(registerUserAction(newUserData, props.history));
   };
   return (
     <Grid container className={classes.form}>
@@ -166,7 +156,8 @@ function Register(props) {
 }
 
 Register.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Register);
+export default withRouter(withStyles(styles)(Register));

@@ -1,5 +1,5 @@
 import {
-  SET_USER_ASYNC,
+  SET_USER,
   SET_ERRORS,
   SET_AUTHENTICATED,
   SET_UNAUTHENTICATED,
@@ -26,7 +26,7 @@ export default function userReducer(state = initialState, action) {
         ...state,
         authenticated: false
       };
-    case SET_USER_ASYNC:
+    case SET_USER:
       return { authenticated: true, ...action.payload };
     default:
       return state;
