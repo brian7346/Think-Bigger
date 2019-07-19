@@ -10,7 +10,11 @@ import Typography from "@material-ui/core/Typography";
 import LocationOn from "@material-ui/icons/LocationOn";
 import LinkIcon from "@material-ui/icons/Link";
 import CalendarToday from "@material-ui/icons/CalendarToday";
+import EditIcon from "@material-ui/icons/Edit";
 import dayjs from "dayjs";
+import IconButton from "@material-ui/core/IconButton";
+import Tooltip from "@material-ui/core/Tooltip";
+import { uploadImageAction, logoutUserAction } from "actions/userActions";
 
 const styles = theme => ({
   paper: {
@@ -33,7 +37,7 @@ const styles = theme => ({
       position: "relative",
       "& button": {
         position: "absolute",
-        top: "80%",
+        top: "-2%",
         left: "70%"
       }
     },
@@ -75,6 +79,8 @@ function Profile(props) {
   const { classes } = props;
 
   const user = useSelector(state => state.user);
+  const dispatch = useDispatch();
+
   const { loading, authenticated } = user;
   const {
     handle,
@@ -85,12 +91,36 @@ function Profile(props) {
     location
   } = user.credentials;
 
+  const handleImageChange = event => {
+    const image = event.target.files[0];
+    const formData = new FormData();
+    formData.append("image", image, image.name);
+    dispatch(uploadImageAction(formData));
+  };
+
+  const handleEditPicture = () => {
+    const fileInput = document.getElementById("inputImage");
+    fileInput.click();
+  };
+
   let profileMarkup = !loading ? (
     authenticated ? (
       <Paper className={classes.paper}>
         <div className={classes.profile}>
           <div className="image-wrapper">
             <img src={imageUrl} alt="profile" className="profile-image" />
+            <Tooltip title="Edit profile picture">
+              <IconButton onClick={handleEditPicture}>
+                <EditIcon color="primary" />
+              </IconButton>
+            </Tooltip>
+            <input
+              type="file"
+              id="inputImage"
+              hidden="hidden"
+              onChange={handleImageChange}
+            />
+
             <hr />
             <div className="profile-details">
               <MuiLink
@@ -163,7 +193,7 @@ function Profile(props) {
       </Paper>
     )
   ) : (
-    <p>Loading...spawn.</p>
+    <p>Loading...</p>
   );
   return profileMarkup;
 }
