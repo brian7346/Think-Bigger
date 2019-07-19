@@ -22,11 +22,10 @@ import { Home, Login, Register } from "pages/";
 const theme = createMuiTheme(themeFile);
 
 const token = localStorage.FBIdToken;
-
 if (token) {
   const decodedToken = jwtDecode(token);
-
   if (decodedToken.exp * 1000 < Date.now()) {
+    localStorage.removeItem("FBIdToken");
     store.dispatch(loginUserAction());
     window.location.href = "/login";
   } else {

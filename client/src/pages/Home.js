@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import Grid from "@material-ui/core/Grid";
 
-import { Post } from "components/";
+import { Post, Profile } from "components/";
 
 export default function Home() {
   const user = useSelector(state => state.user);
@@ -30,9 +30,9 @@ export default function Home() {
     <p>Loading</p>
   );
   return (
-    <Grid container>
+    <Grid container spacing={2}>
       <Grid item sm={4} xs={12}>
-        <p>Profile</p>
+        <Profile />
       </Grid>
       <Grid item sm={8} xs={12}>
         {recentPostsMarkup}
