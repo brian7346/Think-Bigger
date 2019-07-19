@@ -9,11 +9,32 @@ export default {
     secondary: {
       light: "#ff7961",
       main: "#ffffff",
-      dark: "#ba000d",
+      dark: "#D3D3D3",
       contrastText: "#000"
     }
   },
   typography: {
     useNextVariants: true
+  },
+  form: {
+    textAlign: "center"
+  },
+  pageTitle: {
+    margin: "10px auto 10px auto"
+  },
+  textField: {
+    margin: "10px auto 10px auto"
+  },
+  button: {
+    marginTop: 20,
+    position: "relative"
+  },
+  customError: {
+    color: "red",
+    fontSize: "0.8rem",
+    marginTop: 10
+  },
+  progress: {
+    position: "absolute"
   }
 };

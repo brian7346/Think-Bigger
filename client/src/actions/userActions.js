@@ -12,6 +12,24 @@ export const loginUserAction = (userData, history) => async dispatch => {
   dispatch({ type: LOADING_UI });
   try {
     const res = await axios.post("/login", userData);
+
+    setAuthorizationHeader(res.data.token);
+    dispatch(getUserData());
+
+    history.push("/");
+  } catch (err) {
+    dispatch({
+      type: SET_ERRORS,
+      payload: err.response.data
+    });
+  }
+};
+
+export const registerUserAction = (newUserData, history) => async dispatch => {
+  dispatch({ type: LOADING_UI });
+  try {
+    const res = await axios.post("/register", newUserData);
+
     setAuthorizationHeader(res.data.token);
     dispatch(getUserData());
     history.push("/");
@@ -23,50 +41,44 @@ export const loginUserAction = (userData, history) => async dispatch => {
   }
 };
 
-export const registerUserAction = (newUserData, history) => dispatch => {
-  dispatch({ type: LOADING_UI });
-  axios
-    .post("/register", newUserData)
-    .then(res => {
-      setAuthorizationHeader(res.data.token);
-      dispatch(getUserData());
-      history.push("/");
-    })
-    .catch(err => {
-      dispatch({
-        type: SET_ERRORS,
-        payload: err.response.data
-      });
-    });
-};
-
 export const logoutUserAction = () => dispatch => {
   localStorage.removeItem("FBIdToken");
   delete axios.defaults.headers.common["Authorization"];
   dispatch({ type: SET_UNAUTHENTICATED });
 };
 
-export const getUserData = () => dispatch => {
+export const getUserData = () => async dispatch => {
   dispatch({ type: LOADING_USER });
-  axios
-    .get("/user")
-    .then(res => {
-      dispatch({
-        type: SET_USER,
-        payload: res.data
-      });
-    })
-    .catch(err => console.log(err));
+  try {
+    const res = await axios.get("/user");
+
+    dispatch({
+      type: SET_USER,
+      payload: res.data
+    });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
-export const uploadImageAction = formData => dispatch => {
+export const uploadImageAction = formData => async dispatch => {
   dispatch({ type: LOADING_USER });
-  axios
-    .post("/user/image", formData)
-    .then(() => {
-      dispatch(getUserData());
-    })
-    .catch(err => console.log(err));
+  try {
+    await axios.post("/user/image", formData);
+    dispatch(getUserData());
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const editUserDetailsAction = userDetails => async dispatch => {
+  dispatch({ type: LOADING_USER });
+  try {
+    await axios.post("/user", userDetails);
+    dispatch(getUserData());
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 const setAuthorizationHeader = token => {

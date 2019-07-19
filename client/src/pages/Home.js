@@ -31,10 +31,10 @@ export default function Home() {
   );
   return (
     <Grid container spacing={2}>
-      <Grid item sm={4} xs={12}>
+      <Grid item sm={4}>
         <Profile />
       </Grid>
-      <Grid item sm={8} xs={12}>
+      <Grid item sm={8}>
         {recentPostsMarkup}
       </Grid>
     </Grid>

@@ -10,11 +10,13 @@ import Typography from "@material-ui/core/Typography";
 import LocationOn from "@material-ui/icons/LocationOn";
 import LinkIcon from "@material-ui/icons/Link";
 import CalendarToday from "@material-ui/icons/CalendarToday";
+import KeyboardReturn from "@material-ui/icons/KeyboardReturn";
 import EditIcon from "@material-ui/icons/Edit";
 import dayjs from "dayjs";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import { uploadImageAction, logoutUserAction } from "actions/userActions";
+import { EditDetiles } from "./";
 
 const styles = theme => ({
   paper: {
@@ -32,13 +34,14 @@ const styles = theme => ({
     paddingLeft: 5
   },
   profile: {
+    position: "relative",
     "& .image-wrapper": {
       textAlign: "center",
       position: "relative",
       "& button": {
         position: "absolute",
         top: "-2%",
-        left: "70%"
+        left: "78%"
       }
     },
     "& .profile-image": {
@@ -82,6 +85,7 @@ function Profile(props) {
   const dispatch = useDispatch();
 
   const { loading, authenticated } = user;
+
   const {
     handle,
     createdAt,
@@ -101,6 +105,10 @@ function Profile(props) {
   const handleEditPicture = () => {
     const fileInput = document.getElementById("inputImage");
     fileInput.click();
+  };
+
+  const handleLogout = () => {
+    dispatch(logoutUserAction());
   };
 
   let profileMarkup = !loading ? (
@@ -165,31 +173,37 @@ function Profile(props) {
               </span>
             </div>
           </div>
+          <Tooltip title="Logout" placement="top">
+            <IconButton onClick={handleLogout}>
+              <KeyboardReturn color="primary" />
+            </IconButton>
+          </Tooltip>
+          <EditDetiles />
         </div>
       </Paper>
     ) : (
       <Paper className={classes.paper}>
         <Typography variant="body2" align="center">
           No profile found, please login again
-          <div className={classes.buttons}>
-            <Button
-              variant="contained"
-              color="primary"
-              component={Link}
-              to="/login"
-            >
-              Login
-            </Button>
-            <Button
-              variant="contained"
-              color="secondary"
-              component={Link}
-              to="/register"
-            >
-              Sign up
-            </Button>
-          </div>
         </Typography>
+        <div className={classes.buttons}>
+          <Button
+            variant="contained"
+            color="primary"
+            component={Link}
+            to="/login"
+          >
+            Login
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            component={Link}
+            to="/register"
+          >
+            Sign up
+          </Button>
+        </div>
       </Paper>
     )
   ) : (

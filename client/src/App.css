@@ -10,6 +10,11 @@ body {
   margin: 80px auto 0 auto;
   padding-top: 20px;
   max-width: 1200px;
+  min-width: 800px;
+}
+
+.MuiGrid-container {
+  flex-wrap: nowrap !important;
 }
 
 .nav-container {
