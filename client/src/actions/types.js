@@ -14,3 +14,4 @@ export const LIKE_POST = 'LIKE_POST';
 export const UNLIKE_POST = 'UNLIKE_POST';
 export const LOADING_DATA = 'LOADING_DATA';
 export const DELETE_POST = 'DELETE_POST';
+export const CREATE_POST = 'CREATE_POST';

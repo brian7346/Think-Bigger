@@ -81,7 +81,7 @@ function EditDetiles(props) {
       <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
         <DialogTitle>Edit your details</DialogTitle>
         <DialogContent>
-          <from>
+          <form>
             <TextField
               name="bio"
               type="text"
@@ -114,7 +114,7 @@ function EditDetiles(props) {
               onChange={handleLocation}
               fullWidth
             />
-          </from>
+          </form>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">

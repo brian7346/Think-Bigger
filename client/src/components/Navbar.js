@@ -5,11 +5,10 @@ import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
-import AddIcon from '@material-ui/icons/Add';
 import HomeIcon from '@material-ui/icons/Home';
 import Notifications from '@material-ui/icons/Notifications';
 
-import { MyButton } from '.';
+import { MyButton, CreatePost } from '.';
 
 function Navbar() {
   const authenticated = useSelector(state => state.user.authenticated);
@@ -19,9 +18,7 @@ function Navbar() {
       <Toolbar className="nav-container">
         {authenticated ? (
           <>
-            <MyButton tip="Create post">
-              <AddIcon />
-            </MyButton>
+            <CreatePost />
             <Link to="/">
               <MyButton tip="Home">
                 <HomeIcon />
