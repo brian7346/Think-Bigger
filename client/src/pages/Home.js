@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import axios from "axios";
-import Grid from "@material-ui/core/Grid";
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
 
-import { Post, Profile } from "components/";
+import Grid from '@material-ui/core/Grid';
+
+import { Post, Profile } from 'components/';
 
 export default function Home() {
   const user = useSelector(state => state.user);
@@ -15,7 +16,7 @@ export default function Home() {
 
   useEffect(() => {
     axios
-      .get("/posts")
+      .get('/posts')
       .then(res => {
         handlePosts(res.data);
       })

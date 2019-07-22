@@ -1,37 +1,39 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import withStyles from "@material-ui/core/styles/withStyles";
-import PropTypes from "prop-types";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import TextField from "@material-ui/core/TextField";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Button from "@material-ui/core/Button";
-import { Link, withRouter } from "react-router-dom";
-import { registerUserAction } from "actions/userActions";
-import { CLEAR_ERRORS } from "actions/types";
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
+import withStyles from '@material-ui/core/styles/withStyles';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Button from '@material-ui/core/Button';
+
+import { registerUserAction } from 'actions/userActions';
+import { CLEAR_ERRORS } from 'actions/types';
 
 const styles = theme => ({
   form: {
-    textAlign: "center"
+    textAlign: 'center'
   },
   pageTitle: {
-    margin: "10px auto 10px auto"
+    margin: '10px auto 10px auto'
   },
   textField: {
-    margin: "10px auto 10px auto"
+    margin: '10px auto 10px auto'
   },
   button: {
     marginTop: 20,
-    position: "relative"
+    position: 'relative'
   },
   customError: {
-    color: "red",
-    fontSize: "0.8rem",
+    color: 'red',
+    fontSize: '0.8rem',
     marginTop: 10
   },
   progress: {
-    position: "absolute"
+    position: 'absolute'
   }
 });
 
@@ -43,10 +45,10 @@ function Register(props) {
   const { errors } = UI;
   const dispatch = useDispatch();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [handle, setHandle] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [handle, setHandle] = useState('');
 
   const handleEmail = event => setEmail(event.target.value);
   const handlePassword = event => setPassword(event.target.value);
@@ -70,7 +72,7 @@ function Register(props) {
     return () => {
       dispatch({ type: CLEAR_ERRORS });
     };
-  }, []);
+  }, [dispatch]);
 
   return (
     <Grid container className={classes.form}>
@@ -147,10 +149,10 @@ function Register(props) {
           </Button>
           <br />
           <small>
-            Already have an account? Log in{" "}
+            Already have an account? Log in{' '}
             <Link to="/login">
               <strong>here</strong>
-            </Link>{" "}
+            </Link>{' '}
           </small>
         </form>
       </Grid>
