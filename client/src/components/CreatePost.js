@@ -112,4 +112,8 @@ function CreatePost(props) {
   );
 }
 
+CreatePost.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
 export default withStyles(style)(CreatePost);

@@ -14,6 +14,7 @@ import LinkIcon from '@material-ui/icons/Link';
 import CalendarToday from '@material-ui/icons/CalendarToday';
 import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
 import EditIcon from '@material-ui/icons/Edit';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { uploadImageAction, logoutUserAction } from 'actions/userActions';
 import { EditDetiles, MyButton } from '.';
@@ -75,6 +76,12 @@ const styles = theme => ({
     '& a': {
       margin: '20px 10px'
     }
+  },
+  progressSpinner: {
+    position: 'absolute',
+    top: '20%',
+    left: '15%',
+    transform: 'translate(-10%, -10%)'
   }
 });
 
@@ -203,7 +210,7 @@ function Profile(props) {
       </Paper>
     )
   ) : (
-    <p>Loading...</p>
+    <CircularProgress size={30} className={classes.progressSpinner} />
   );
   return profileMarkup;
 }
