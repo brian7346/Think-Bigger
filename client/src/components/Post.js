@@ -15,7 +15,7 @@ import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import Favorite from '@material-ui/icons/Favorite';
 
 import { likePostAction, unlikePostAction } from 'actions/dataActions';
-import { MyButton } from '.';
+import { MyButton, DeleteScream } from '.';
 
 const styles = {
   card: {
@@ -29,7 +29,7 @@ const styles = {
     padding: 25,
     objectFit: 'cover'
   },
-  likeCommentsPanel: {
+  centerPanel: {
     display: 'flex',
     alignItems: 'center'
   }
@@ -39,7 +39,10 @@ function Post(props) {
   const user = useSelector(state => state.user);
   const dispatch = useDispatch();
 
-  const { authenticated } = user;
+  const {
+    authenticated,
+    credentials: { handle }
+  } = user;
   const {
     classes,
     post: {
@@ -87,6 +90,11 @@ function Post(props) {
     </MyButton>
   );
 
+  const deleteButton =
+    authenticated && userHandle === handle ? (
+      <DeleteScream postId={postId} />
+    ) : null;
+
   return (
     <Card className={classes.card}>
       <CardMedia
@@ -95,21 +103,24 @@ function Post(props) {
         className={classes.image}
       />
       <CardContent className={classes.content}>
-        <Typography
-          variant="h5"
-          component={Link}
-          to={`/users/${userHandle}`}
-          color="primary"
-        >
-          {userHandle}
-        </Typography>
+        <div className={classes.centerPanel}>
+          <Typography
+            variant="h5"
+            component={Link}
+            to={`/users/${userHandle}`}
+            color="primary"
+          >
+            {userHandle}
+          </Typography>
+          {deleteButton}
+        </div>
         <Typography variant="body2" color="textSecondary">
           {dayjs(createdAt).fromNow()}
         </Typography>
         <Typography variant="body1" color="textSecondary">
           {body}
         </Typography>
-        <div className={classes.likeCommentsPanel}>
+        <div className={classes.centerPanel}>
           {likeButton}
           <span>{likeCount} likes</span>
           <MyButton tip="comments">

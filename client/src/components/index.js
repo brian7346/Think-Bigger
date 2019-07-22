@@ -5,3 +5,4 @@ export { default as AuthRoute } from './AuthRoute';
 export { default as Profile } from './Profile';
 export { default as EditDetiles } from './EditDetiles';
 export { default as MyButton } from './MyButton';
+export { default as DeleteScream } from './DeleteScream';

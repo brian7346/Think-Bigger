@@ -1,4 +1,10 @@
-import { SET_POSTS, LOADING_DATA, LIKE_POST, UNLIKE_POST } from './types';
+import {
+  SET_POSTS,
+  LOADING_DATA,
+  LIKE_POST,
+  UNLIKE_POST,
+  DELETE_POST
+} from './types';
 import axios from 'axios';
 
 // @action  GET /posts
@@ -19,7 +25,7 @@ export const getPostsAction = () => async dispatch => {
   }
 };
 
-// @action  GET /post
+// @action GET /post/{postId}/like
 // @desc   like post / Поставить лайк на пост
 export const likePostAction = postId => async dispatch => {
   try {
@@ -33,7 +39,7 @@ export const likePostAction = postId => async dispatch => {
   }
 };
 
-// @action  GET /posts
+// @action  GET /post/{postId}/unlike
 // @desc   unlike post / Убрать лайк с поста
 export const unlikePostAction = postId => async dispatch => {
   try {
@@ -41,6 +47,20 @@ export const unlikePostAction = postId => async dispatch => {
     dispatch({
       type: UNLIKE_POST,
       payload: res.data
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// @action  DELETE /posts/{postId}
+// @desc   delete post / Удалить пост
+export const deletePostAction = postId => async dispatch => {
+  try {
+    await axios.delete(`/post/${postId}`);
+    dispatch({
+      type: DELETE_POST,
+      payload: postId
     });
   } catch (err) {
     console.log(err);
