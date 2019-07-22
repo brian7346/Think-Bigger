@@ -123,7 +123,7 @@ function Post(props) {
         <div className={classes.centerPanel}>
           {likeButton}
           <span>{likeCount} likes</span>
-          <MyButton tip="comments">
+          <MyButton tip="Comments">
             <ChatIcon color="primary" />
           </MyButton>
           <span>{commentCount} comments</span>
