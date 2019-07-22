@@ -1,22 +1,23 @@
 import {
   SET_USER,
   SET_ERRORS,
-  CLEAR_ERRORS,
   LOADING_UI,
   SET_UNAUTHENTICATED,
   LOADING_USER
-} from "./types";
-import axios from "axios";
+} from './types';
+import axios from 'axios';
 
+// @action  POST /register
+// @desc   Login / Вход
 export const loginUserAction = (userData, history) => async dispatch => {
   dispatch({ type: LOADING_UI });
   try {
-    const res = await axios.post("/login", userData);
+    const res = await axios.post('/login', userData);
 
     setAuthorizationHeader(res.data.token);
     dispatch(getUserData());
 
-    history.push("/");
+    history.push('/');
   } catch (err) {
     dispatch({
       type: SET_ERRORS,
@@ -25,14 +26,16 @@ export const loginUserAction = (userData, history) => async dispatch => {
   }
 };
 
+// @action  POST /register
+// @desc   Register user / Регистрация
 export const registerUserAction = (newUserData, history) => async dispatch => {
   dispatch({ type: LOADING_UI });
   try {
-    const res = await axios.post("/register", newUserData);
+    const res = await axios.post('/register', newUserData);
 
     setAuthorizationHeader(res.data.token);
     dispatch(getUserData());
-    history.push("/");
+    history.push('/');
   } catch (err) {
     dispatch({
       type: SET_ERRORS,
@@ -42,15 +45,17 @@ export const registerUserAction = (newUserData, history) => async dispatch => {
 };
 
 export const logoutUserAction = () => dispatch => {
-  localStorage.removeItem("FBIdToken");
-  delete axios.defaults.headers.common["Authorization"];
+  localStorage.removeItem('FBIdToken');
+  delete axios.defaults.headers.common['Authorization'];
   dispatch({ type: SET_UNAUTHENTICATED });
 };
 
+// @action  GET /user
+// @desc   Get user data / Получить инфорацию о пользователе
 export const getUserData = () => async dispatch => {
   dispatch({ type: LOADING_USER });
   try {
-    const res = await axios.get("/user");
+    const res = await axios.get('/user');
 
     dispatch({
       type: SET_USER,
@@ -61,20 +66,23 @@ export const getUserData = () => async dispatch => {
   }
 };
 
+// @action  POST /user/image
+// @desc   Upload profile image / Загрузить картинку профиля
 export const uploadImageAction = formData => async dispatch => {
   dispatch({ type: LOADING_USER });
   try {
-    await axios.post("/user/image", formData);
+    await axios.post('/user/image', formData);
     dispatch(getUserData());
   } catch (err) {
     console.log(err);
   }
 };
-
+// @action  POST /user/image
+// @desc   Update details/ Обновить информацию
 export const editUserDetailsAction = userDetails => async dispatch => {
   dispatch({ type: LOADING_USER });
   try {
-    await axios.post("/user", userDetails);
+    await axios.post('/user', userDetails);
     dispatch(getUserData());
   } catch (err) {
     console.log(err);
@@ -83,6 +91,6 @@ export const editUserDetailsAction = userDetails => async dispatch => {
 
 const setAuthorizationHeader = token => {
   const FBIdToken = `Bearer ${token}`;
-  localStorage.setItem("FBIdToken", FBIdToken);
-  axios.defaults.headers.common["Authorization"] = FBIdToken;
+  localStorage.setItem('FBIdToken', FBIdToken);
+  axios.defaults.headers.common['Authorization'] = FBIdToken;
 };

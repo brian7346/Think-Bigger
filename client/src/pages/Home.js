@@ -1,32 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
 
 import Grid from '@material-ui/core/Grid';
 
 import { Post, Profile } from 'components/';
+import { getPostsAction } from 'actions/dataActions';
 
 export default function Home() {
-  const user = useSelector(state => state.user);
+  const data = useSelector(state => state.data);
   const dispatch = useDispatch();
-
-  const [posts, setPost] = useState(null);
-
-  const handlePosts = data => setPost(data);
+  const { posts, loading } = data;
 
   useEffect(() => {
-    axios
-      .get('/posts')
-      .then(res => {
-        handlePosts(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    dispatch(getPostsAction());
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  let recentPostsMarkup = posts ? (
-    posts.map(post => <Post post={post} key={post.postId} />)
+  let recentPostsMarkup = !loading ? (
+    posts.map(post => {
+      return <Post post={post} key={post.postId} />;
+    })
   ) : (
     <p>Loading</p>
   );
