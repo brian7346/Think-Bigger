@@ -13,7 +13,12 @@ import DeleteOutline from '@material-ui/icons/DeleteOutline';
 import { deletePostAction } from 'actions/dataActions';
 import { MyButton } from '.';
 
-const styles = {};
+const styles = {
+  deleteButton: {
+    position: 'absolute',
+    left: '90%'
+  }
+};
 
 function DeleteScream(props) {
   const { classes, postId } = props;
@@ -33,7 +38,7 @@ function DeleteScream(props) {
       <MyButton
         tip="Delete Scream"
         onClick={handleOpen}
-        btnClassname={classes.deleteButton}
+        btnClassName={classes.deleteButton}
       >
         <DeleteOutline color="error" />
       </MyButton>

@@ -20,7 +20,8 @@ import { MyButton, DeleteScream, PostDialog } from '.';
 const styles = {
   card: {
     display: 'flex',
-    marginBottom: 20
+    marginBottom: 20,
+    position: 'relative'
   },
   image: {
     minWidth: 200
