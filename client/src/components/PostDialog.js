@@ -42,6 +42,11 @@ const style = {
   expandButton: {
     position: 'absolute',
     left: '90%'
+  },
+  spinnerDiv: {
+    textAlign: 'center',
+    marginTop: 50,
+    marginBottom: 50
   }
 };
 
@@ -63,7 +68,9 @@ function PostDialog(props) {
   const handleClose = () => setOpen(false);
 
   const dialogMarkup = loading ? (
-    <CircularProgress size={100} />
+    <div className={classes.spinnerDiv}>
+      <CircularProgress size={100} thickness={2} />
+    </div>
   ) : (
     <Grid container spacing={3}>
       <Grid item sm={5}>
