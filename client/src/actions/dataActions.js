@@ -9,7 +9,8 @@ import {
   SET_ERRORS,
   CLEAR_ERRORS,
   SET_POST,
-  STOP_LOADING_UI
+  STOP_LOADING_UI,
+  SUBMIT_COMMENT
 } from './types';
 import axios from 'axios';
 
@@ -58,10 +59,7 @@ export const createPostAction = newPost => async dispatch => {
     type: CREATE_POST,
     payload: res.data
   });
-  dispatch({
-    type: CLEAR_ERRORS,
-    payload: []
-  });
+  dispatch(clearErrorsAction());
 };
 
 // @action GET /post/{postId}/like
@@ -90,6 +88,17 @@ export const unlikePostAction = postId => async dispatch => {
   } catch (err) {
     console.log(err);
   }
+};
+
+// @action  POST /post/{postId}/comment
+// @desc   Submit a comment to post / Добавить комментарий к посту
+export const submitCommentAction = (postId, commentData) => async dispatch => {
+  const res = await axios.post(`/post/${postId}/comment`, commentData);
+  dispatch({
+    type: SUBMIT_COMMENT,
+    payload: res.data
+  });
+  dispatch(dispatch(clearErrorsAction()));
 };
 
 // @action  DELETE /posts/{postId}

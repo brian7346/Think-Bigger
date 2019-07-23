@@ -5,7 +5,8 @@ import {
   LOADING_DATA,
   DELETE_POST,
   CREATE_POST,
-  SET_POST
+  SET_POST,
+  SUBMIT_COMMENT
 } from 'actions/types';
 
 const initialState = {
@@ -41,7 +42,10 @@ export default function dataReducer(state = initialState, action) {
       );
 
       if (state.post.postId === action.payload.postId) {
-        state.post = action.payload;
+        state.post = {
+          comments: state.post.comments,
+          ...action.payload
+        };
       }
 
       state.posts[index] = action.payload;
@@ -60,6 +64,14 @@ export default function dataReducer(state = initialState, action) {
       return {
         ...state,
         posts: [action.payload, ...state.posts]
+      };
+    case SUBMIT_COMMENT:
+      return {
+        ...state,
+        post: {
+          ...state.post,
+          comments: [action.payload, ...state.post.comments]
+        }
       };
     default:
       return state;

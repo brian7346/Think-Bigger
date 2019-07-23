@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import PropTypes from 'prop-types';
 
 import withStyles from '@material-ui/styles/withStyles';
@@ -18,7 +17,7 @@ import UnfoldMore from '@material-ui/icons/UnfoldMore';
 import ChatIcon from '@material-ui/icons/Chat';
 
 import { getPostAction } from 'actions/dataActions';
-import { MyButton, LikeButton, Comments } from '.';
+import { MyButton, LikeButton, Comments, CommentForm } from '.';
 
 const style = {
   invisibleSeparator: {
@@ -31,7 +30,7 @@ const style = {
     marginBottom: 20
   },
   profileImage: {
-    maxWidth: 200,
+    width: '100%',
     height: 200,
     borderRadius: '50%',
     objectFit: 'cover'
@@ -41,8 +40,7 @@ const style = {
   },
   closeButton: {
     position: 'absolute',
-    left: '90%',
-    top: '8%'
+    left: '90%'
   },
   expandButton: {
     position: 'absolute',
@@ -113,7 +111,8 @@ function PostDialog(props) {
         </MyButton>
         <span>{commentCount} comments</span>
       </Grid>
-      <hr className={classes.visibleSeparator} />
+      {/* <hr className={classes.visibleSeparator} /> */}
+      <CommentForm postId={postId} />
       <Comments comments={comments} />
     </Grid>
   );
@@ -127,6 +126,7 @@ function PostDialog(props) {
       >
         <UnfoldMore color="primary" />
       </MyButton>
+
       <Dialog open={open} onClose={handleClose} fullWidth>
         <MyButton
           tip="Close"
