@@ -14,7 +14,7 @@ body {
 }
 
 .MuiGrid-container {
-  flex-wrap: nowrap !important;
+  /* flex-wrap: nowrap !important; */
 }
 
 .nav-container {

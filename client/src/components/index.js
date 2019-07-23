@@ -9,3 +9,4 @@ export { default as DeleteScream } from './DeleteScream';
 export { default as CreatePost } from './CreatePost';
 export { default as PostDialog } from './PostDialog';
 export { default as LikeButton } from './LikeButton';
+export { default as Comments } from './Comments';

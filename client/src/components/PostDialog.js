@@ -10,22 +10,25 @@ import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import UnfoldMore from '@material-ui/icons/UnfoldMore';
 import ChatIcon from '@material-ui/icons/Chat';
 
 import { getPostAction } from 'actions/dataActions';
-import { MyButton, LikeButton } from '.';
+import { MyButton, LikeButton, Comments } from '.';
 
 const style = {
   invisibleSeparator: {
     border: 'none',
     margin: 4
+  },
+  visibleSeparator: {
+    width: '100%',
+    borderBottom: '1px solid rgba(0 ,0, 0, 0.1)',
+    marginBottom: 20
   },
   profileImage: {
     maxWidth: 200,
@@ -49,6 +52,9 @@ const style = {
     textAlign: 'center',
     marginTop: 50,
     marginBottom: 50
+  },
+  dialogUserInfo: {
+    display: 'flex'
   }
 };
 
@@ -58,7 +64,14 @@ function PostDialog(props) {
   const dispatch = useDispatch();
 
   const { postId, classes, userHandle } = props;
-  const { body, createdAt, likeCount, commentCount, userImage } = post;
+  const {
+    body,
+    createdAt,
+    likeCount,
+    commentCount,
+    userImage,
+    comments
+  } = post;
   const { loading } = UI;
 
   const [open, setOpen] = useState(false);
@@ -100,6 +113,8 @@ function PostDialog(props) {
         </MyButton>
         <span>{commentCount} comments</span>
       </Grid>
+      <hr className={classes.visibleSeparator} />
+      <Comments comments={comments} />
     </Grid>
   );
 

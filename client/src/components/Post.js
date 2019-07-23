@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -35,7 +35,6 @@ const styles = {
 
 function Post(props) {
   const user = useSelector(state => state.user);
-  const dispatch = useDispatch();
 
   const {
     authenticated,
