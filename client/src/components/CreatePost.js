@@ -14,7 +14,11 @@ import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
 
-import { createPostAction, setErrorsAction } from 'actions/dataActions';
+import {
+  createPostAction,
+  setErrorsAction,
+  clearErrorsAction
+} from 'actions/dataActions';
 import { MyButton } from '.';
 
 const style = {
@@ -23,7 +27,8 @@ const style = {
   },
   button: {
     margin: '20px 0 20px 0',
-    position: 'relative'
+    position: 'relative',
+    float: 'right'
   },
   progressSpinner: {
     position: 'absolute'
@@ -31,7 +36,7 @@ const style = {
   closeButton: {
     position: 'absolute',
     left: '90%',
-    top: '5%'
+    top: '3%'
   }
 };
 
@@ -45,7 +50,11 @@ function CreatePost(props) {
   const [body, setBody] = useState('');
 
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    setBody('');
+    dispatch(clearErrorsAction());
+  };
   const handleBody = event => setBody(event.target.value);
   const handleSubmit = async event => {
     event.preventDefault();
@@ -60,7 +69,6 @@ function CreatePost(props) {
       dispatch(setErrorsAction(err.response.data));
     }
   };
-
   return (
     <>
       <MyButton tip="Create post" onClick={handleOpen}>
@@ -89,6 +97,7 @@ function CreatePost(props) {
               className={classes.textField}
               onChange={handleBody}
               fullWidth
+              value={body}
             />
             <Button
               type="submit"

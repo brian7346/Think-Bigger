@@ -7,7 +7,9 @@ import {
   DELETE_POST,
   CREATE_POST,
   SET_ERRORS,
-  CLEAR_ERRORS
+  CLEAR_ERRORS,
+  SET_POST,
+  STOP_LOADING_UI
 } from './types';
 import axios from 'axios';
 
@@ -26,6 +28,24 @@ export const getPostsAction = () => async dispatch => {
       type: SET_POSTS,
       payload: []
     });
+  }
+};
+
+// @action  GET /post
+// @desc   Get post / Получить пост
+export const getPostAction = postId => async dispatch => {
+  dispatch({ type: LOADING_UI });
+  try {
+    const res = await axios.get(`/post/${postId}`);
+    dispatch({
+      type: SET_POST,
+      payload: res.data
+    });
+    dispatch({
+      type: STOP_LOADING_UI
+    });
+  } catch (err) {
+    console.log(err);
   }
 };
 
@@ -89,4 +109,9 @@ export const deletePostAction = postId => async dispatch => {
 export const setErrorsAction = error => ({
   type: SET_ERRORS,
   payload: error
+});
+
+export const clearErrorsAction = error => ({
+  type: CLEAR_ERRORS,
+  payload: []
 });

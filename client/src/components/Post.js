@@ -15,7 +15,7 @@ import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import Favorite from '@material-ui/icons/Favorite';
 
 import { likePostAction, unlikePostAction } from 'actions/dataActions';
-import { MyButton, DeleteScream } from '.';
+import { MyButton, DeleteScream, PostDialog } from '.';
 
 const styles = {
   card: {
@@ -127,6 +127,7 @@ function Post(props) {
             <ChatIcon color="primary" />
           </MyButton>
           <span>{commentCount} comments</span>
+          <PostDialog postId={postId} userHandle={userHandle} />
         </div>
       </CardContent>
     </Card>
