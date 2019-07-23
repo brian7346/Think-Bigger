@@ -11,11 +11,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import ChatIcon from '@material-ui/icons/Chat';
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
-import Favorite from '@material-ui/icons/Favorite';
 
-import { likePostAction, unlikePostAction } from 'actions/dataActions';
-import { MyButton, DeleteScream, PostDialog } from '.';
+import { MyButton, DeleteScream, PostDialog, LikeButton } from '.';
 
 const styles = {
   card: {
@@ -59,38 +56,6 @@ function Post(props) {
 
   dayjs.extend(relativeTime);
 
-  const likedPost = () => {
-    if (user.likes && user.likes.find(like => like.postId === postId)) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
-  const likePost = () => {
-    dispatch(likePostAction(postId));
-  };
-
-  const unlikePost = () => {
-    dispatch(unlikePostAction(postId));
-  };
-
-  const likeButton = !authenticated ? (
-    <MyButton tip="Like">
-      <Link to="/login">
-        <FavoriteBorder color="primary" />
-      </Link>
-    </MyButton>
-  ) : likedPost() ? (
-    <MyButton tip="Undo like" onClick={unlikePost}>
-      <Favorite color="primary" />
-    </MyButton>
-  ) : (
-    <MyButton tip="Like" onClick={likePost}>
-      <FavoriteBorder color="primary" />
-    </MyButton>
-  );
-
   const deleteButton =
     authenticated && userHandle === handle ? (
       <DeleteScream postId={postId} />
@@ -122,7 +87,7 @@ function Post(props) {
           {body}
         </Typography>
         <div className={classes.centerPanel}>
-          {likeButton}
+          <LikeButton postId={postId} />
           <span>{likeCount} likes</span>
           <MyButton tip="Comments">
             <ChatIcon color="primary" />

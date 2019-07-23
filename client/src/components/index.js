@@ -8,3 +8,4 @@ export { default as MyButton } from './MyButton';
 export { default as DeleteScream } from './DeleteScream';
 export { default as CreatePost } from './CreatePost';
 export { default as PostDialog } from './PostDialog';
+export { default as LikeButton } from './LikeButton';

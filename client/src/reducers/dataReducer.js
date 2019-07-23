@@ -40,6 +40,10 @@ export default function dataReducer(state = initialState, action) {
         post => post.postId === action.payload.postId
       );
 
+      if (state.post.postId === action.payload.postId) {
+        state.post = action.payload;
+      }
+
       state.posts[index] = action.payload;
 
       return {

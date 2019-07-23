@@ -17,9 +17,10 @@ import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import UnfoldMore from '@material-ui/icons/UnfoldMore';
+import ChatIcon from '@material-ui/icons/Chat';
 
 import { getPostAction } from 'actions/dataActions';
-import { MyButton } from '.';
+import { MyButton, LikeButton } from '.';
 
 const style = {
   invisibleSeparator: {
@@ -37,7 +38,8 @@ const style = {
   },
   closeButton: {
     position: 'absolute',
-    left: '90%'
+    left: '90%',
+    top: '8%'
   },
   expandButton: {
     position: 'absolute',
@@ -91,6 +93,12 @@ function PostDialog(props) {
         </Typography>
         <hr className={classes.invisibleSeparator} />
         <Typography variant="body1">{body}</Typography>
+        <LikeButton postId={postId} />
+        <span>{likeCount} likes</span>
+        <MyButton tip="Comments">
+          <ChatIcon color="primary" />
+        </MyButton>
+        <span>{commentCount} comments</span>
       </Grid>
     </Grid>
   );
