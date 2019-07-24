@@ -41,6 +41,7 @@ function Post(props) {
     credentials: { handle }
   } = user;
   const {
+    openDialog,
     classes,
     post: {
       body,
@@ -92,7 +93,11 @@ function Post(props) {
             <ChatIcon color="primary" />
           </MyButton>
           <span>{commentCount} comments</span>
-          <PostDialog postId={postId} userHandle={userHandle} />
+          <PostDialog
+            postId={postId}
+            userHandle={userHandle}
+            openDialog={openDialog}
+          />
         </div>
       </CardContent>
     </Card>
@@ -101,7 +106,8 @@ function Post(props) {
 
 Post.propTypes = {
   classes: PropTypes.object.isRequired,
-  post: PropTypes.object.isRequired
+  post: PropTypes.object.isRequired,
+  openDialog: PropTypes.bool
 };
 
 export default withStyles(styles)(Post);

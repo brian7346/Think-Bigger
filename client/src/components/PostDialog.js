@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
@@ -61,7 +61,7 @@ function PostDialog(props) {
   const post = useSelector(state => state.data.post);
   const dispatch = useDispatch();
 
-  const { postId, classes, userHandle } = props;
+  const { postId, classes, userHandle, openDialog } = props;
   const {
     body,
     createdAt,
@@ -73,13 +73,36 @@ function PostDialog(props) {
   const { loading } = UI;
 
   const [open, setOpen] = useState(false);
+  const [oldUrl, setOldUrl] = useState('');
+  const [newUrl, setNewUrl] = useState('');
+
+  useEffect(() => {
+    if (openDialog) {
+      handleOpen();
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleOpen = () => {
+    let oldPath = window.location.pathname;
+    const newPath = `/users/${userHandle}/post/${postId}`;
+
+    if (oldPath === newPath) {
+      oldPath = `/users/${userHandle}`;
+    }
+
+    window.history.pushState(null, null, newPath);
     setOpen(true);
+    setOldUrl(oldPath);
+    setNewUrl(newPath);
     dispatch(getPostAction(postId));
   };
-  const handleClose = () => setOpen(false);
-
+  const handleClose = () => {
+    console.log(oldUrl);
+    window.history.pushState(null, null, oldUrl);
+    setOpen(false);
+  };
   const dialogMarkup = loading ? (
     <div className={classes.spinnerDiv}>
       <CircularProgress size={100} thickness={2} />
@@ -111,7 +134,6 @@ function PostDialog(props) {
         </MyButton>
         <span>{commentCount} comments</span>
       </Grid>
-      {/* <hr className={classes.visibleSeparator} /> */}
       <CommentForm postId={postId} />
       <Comments comments={comments} />
     </Grid>
@@ -147,7 +169,8 @@ function PostDialog(props) {
 
 PostDialog.propTypes = {
   postId: PropTypes.string.isRequired,
-  userHandle: PropTypes.string.isRequired
+  userHandle: PropTypes.string.isRequired,
+  openDialog: PropTypes.bool
 };
 
 export default withStyles(style)(PostDialog);

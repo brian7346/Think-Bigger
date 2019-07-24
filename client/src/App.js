@@ -45,6 +45,11 @@ function App() {
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/users/:handle" component={User} />
+              <Route
+                exact
+                path="/users/:handle/post/:postId"
+                component={User}
+              />
               <AuthRoute exact path="/login" component={Login} />
               <AuthRoute exact path="/register" component={Register} />
             </Switch>

@@ -37,11 +37,18 @@ function User(props) {
   const { classes } = props;
 
   const [profile, setProfile] = useState(null);
+  const [postIdParam, setPostIdParam] = useState(null);
 
   const handleProfile = data => setProfile(data);
+  const handlePostIdParam = data => setPostIdParam(data);
 
   useEffect(() => {
     const handle = props.match.params.handle;
+    const postId = props.match.params.postId;
+
+    if (postId) {
+      handlePostIdParam(postId);
+    }
 
     dispatch(getUserDataAction(handle));
 
@@ -60,8 +67,16 @@ function User(props) {
     <CircularProgress size={50} className={classes.spinnerPosts} />
   ) : !posts ? (
     <p>No posts from this user</p>
-  ) : (
+  ) : !postIdParam ? (
     posts.map(post => <Post key={post.postId} post={post} />)
+  ) : (
+    posts.map(post => {
+      if (post.postId !== postIdParam) {
+        return <Post key={post.postId} post={post} />;
+      } else {
+        return <Post key={post.postId} post={post} openDialog />;
+      }
+    })
   );
 
   return (
