@@ -7,7 +7,12 @@ import Grid from '@material-ui/core/Grid';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import { getUserDataAction } from 'actions/dataActions';
-import { Post, StaticProfile } from 'components/';
+import {
+  Post,
+  StaticProfile,
+  PostSceleton,
+  ProfileSceleton
+} from 'components/';
 
 const styles = {
   profile: {
@@ -64,7 +69,7 @@ function User(props) {
   }, []);
 
   const postsMarkup = loading ? (
-    <CircularProgress size={50} className={classes.spinnerPosts} />
+    <PostSceleton />
   ) : !posts ? (
     <p>No posts from this user</p>
   ) : !postIdParam ? (
@@ -82,11 +87,7 @@ function User(props) {
   return (
     <Grid container spacing={2}>
       <Grid item sm={4} className={classes.profile}>
-        {!profile ? (
-          <CircularProgress size={50} className={classes.spinnerProfile} />
-        ) : (
-          <StaticProfile profile={profile} />
-        )}
+        {!profile ? <ProfileSceleton /> : <StaticProfile profile={profile} />}
       </Grid>
       <Grid item sm={8} className={classes.postMarkup}>
         {postsMarkup}

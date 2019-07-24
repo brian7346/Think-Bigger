@@ -5,9 +5,7 @@ import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
 
 import withStyles from '@material-ui/styles/withStyles';
-import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
@@ -74,7 +72,6 @@ function PostDialog(props) {
 
   const [open, setOpen] = useState(false);
   const [oldUrl, setOldUrl] = useState('');
-  const [newUrl, setNewUrl] = useState('');
 
   useEffect(() => {
     if (openDialog) {
@@ -95,7 +92,6 @@ function PostDialog(props) {
     window.history.pushState(null, null, newPath);
     setOpen(true);
     setOldUrl(oldPath);
-    setNewUrl(newPath);
     dispatch(getPostAction(postId));
   };
   const handleClose = () => {

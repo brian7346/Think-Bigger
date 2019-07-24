@@ -4,18 +4,13 @@ import PropTypes from 'prop-types';
 
 import Grid from '@material-ui/core/Grid';
 import withStyles from '@material-ui/core/styles/withStyles';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
-import { Post, Profile } from 'components/';
+import { Post, Profile, PostSceleton } from 'components/';
 import { getPostsAction } from 'actions/dataActions';
 
 const styles = {
   postMarkup: {
     position: 'relative'
-  },
-  spinner: {
-    position: 'absolute',
-    left: '22%'
   }
 };
 
@@ -36,7 +31,7 @@ function Home(props) {
       return <Post post={post} key={post.postId} />;
     })
   ) : (
-    <CircularProgress size={50} className={classes.spinner} />
+    <PostSceleton />
   );
   return (
     <Grid container spacing={2}>

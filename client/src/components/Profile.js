@@ -14,10 +14,9 @@ import LinkIcon from '@material-ui/icons/Link';
 import CalendarToday from '@material-ui/icons/CalendarToday';
 import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
 import EditIcon from '@material-ui/icons/Edit';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { uploadImageAction, logoutUserAction } from 'actions/userActions';
-import { EditDetiles, MyButton } from '.';
+import { EditDetiles, MyButton, ProfileSceleton } from '.';
 
 const styles = theme => ({
   paper: {
@@ -209,7 +208,7 @@ function Profile(props) {
       </Paper>
     )
   ) : (
-    <CircularProgress size={30} className={classes.progressSpinner} />
+    <ProfileSceleton />
   );
   return profileMarkup;
 }

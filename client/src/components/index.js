@@ -13,3 +13,5 @@ export { default as Comments } from './Comments';
 export { default as CommentForm } from './CommentForm';
 export { default as StaticProfile } from './StaticProfile';
 export { default as Notifications } from './Notifications';
+export { default as PostSceleton } from './PostSceleton';
+export { default as ProfileSceleton } from './ProfileSceleton';
