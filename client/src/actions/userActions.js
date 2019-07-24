@@ -3,7 +3,8 @@ import {
   SET_ERRORS,
   LOADING_UI,
   SET_UNAUTHENTICATED,
-  LOADING_USER
+  LOADING_USER,
+  MARK_NOTIFICATIONS_READ
 } from './types';
 import axios from 'axios';
 
@@ -77,6 +78,7 @@ export const uploadImageAction = formData => async dispatch => {
     console.log(err);
   }
 };
+
 // @action  POST /user/image
 // @desc   Update details/ Обновить информацию
 export const editUserDetailsAction = userDetails => async dispatch => {
@@ -84,6 +86,19 @@ export const editUserDetailsAction = userDetails => async dispatch => {
   try {
     await axios.post('/user', userDetails);
     dispatch(getUserData());
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// @action  POST /notifications
+// @desc   Mark notifications / Помечаем оповещения
+export const markNotificationsReadAction = notificationsIds => async dispatch => {
+  try {
+    await axios.post('/notifications/', notificationsIds);
+    dispatch({
+      type: MARK_NOTIFICATIONS_READ
+    });
   } catch (err) {
     console.log(err);
   }

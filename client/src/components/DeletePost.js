@@ -19,7 +19,7 @@ const styles = {
   }
 };
 
-function DeleteScream(props) {
+function DeletePost(props) {
   const { classes, postId } = props;
   const dispatch = useDispatch();
 
@@ -47,7 +47,7 @@ function DeleteScream(props) {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={deletePost} color="primary">
+          <Button onClick={deletePost} color="secondary">
             Delete
           </Button>
         </DialogActions>
@@ -56,9 +56,9 @@ function DeleteScream(props) {
   );
 }
 
-DeleteScream.propTypes = {
+DeletePost.propTypes = {
   classes: PropTypes.object.isRequired,
   postId: PropTypes.string.isRequired
 };
 
-export default withStyles(styles)(DeleteScream);
+export default withStyles(styles)(DeletePost);

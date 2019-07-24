@@ -6,9 +6,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import HomeIcon from '@material-ui/icons/Home';
-import Notifications from '@material-ui/icons/Notifications';
 
-import { MyButton, CreatePost } from '.';
+import { MyButton, CreatePost, Notifications } from '.';
 
 function Navbar() {
   const authenticated = useSelector(state => state.user.authenticated);
@@ -24,9 +23,7 @@ function Navbar() {
                 <HomeIcon />
               </MyButton>
             </Link>
-            <MyButton tip="Notifications">
-              <Notifications />
-            </MyButton>
+            <Notifications />
           </>
         ) : (
           <>

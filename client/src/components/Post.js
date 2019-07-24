@@ -12,7 +12,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import ChatIcon from '@material-ui/icons/Chat';
 
-import { MyButton, DeleteScream, PostDialog, LikeButton } from '.';
+import { MyButton, DeletePost, PostDialog, LikeButton } from '.';
 
 const styles = {
   card: {
@@ -58,7 +58,7 @@ function Post(props) {
 
   const deleteButton =
     authenticated && userHandle === handle ? (
-      <DeleteScream postId={postId} />
+      <DeletePost postId={postId} />
     ) : null;
 
   return (
