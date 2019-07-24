@@ -5,6 +5,10 @@ const firebase = require('firebase');
 const firebaseConfig = require('./config/firebaseConfig');
 const FBAuth = require('./utils/FBAuth');
 const { db } = require('./utils/admin');
+const cors = require('cors');
+
+app.use(cors());
+
 const {
   getAllPosts,
   createPost,

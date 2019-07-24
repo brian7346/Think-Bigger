@@ -95,7 +95,6 @@ function PostDialog(props) {
     dispatch(getPostAction(postId));
   };
   const handleClose = () => {
-    console.log(oldUrl);
     window.history.pushState(null, null, oldUrl);
     setOpen(false);
   };

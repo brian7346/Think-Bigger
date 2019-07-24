@@ -38,6 +38,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "proxy": "https://europe-west1-socialape-1e623.cloudfunctions.net/api"
+  }
 }

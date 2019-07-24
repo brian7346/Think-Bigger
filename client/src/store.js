@@ -7,18 +7,18 @@ const middleware = [thunk];
 
 // include Redux dev tools
 // Подключаем Redux dev tools
-const devTools =
-  process.env.NODE_ENV === 'development'
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ &&
-      window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__()
-    : null;
+// const devTools =
+//   process.env.NODE_ENV === 'development'
+//     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ &&
+//       window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__()
+//     : null;
 
 const store = createStore(
   reducer,
   initialState,
   compose(
-    applyMiddleware(...middleware),
-    devTools
+    applyMiddleware(...middleware)
+    // devTools
   )
 );
 export default store;
