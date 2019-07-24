@@ -3,10 +3,7 @@ import NoImg from 'images/no-image.png';
 import PropTypes from 'prop-types';
 
 import withStyles from '@material-ui/core/styles/withStyles';
-import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
-import MuiLink from '@material-ui/core/Link';
-import Typography from '@material-ui/core/Typography';
 import LocationOn from '@material-ui/icons/LocationOn';
 import LinkIcon from '@material-ui/icons/Link';
 import CalendarToday from '@material-ui/icons/CalendarToday';
