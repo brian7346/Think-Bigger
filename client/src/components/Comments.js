@@ -1,8 +1,7 @@
 import React, { Fragment } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import PropTypes from 'prop-types';
 
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -16,8 +15,6 @@ const style = {
     margin: 4
   },
   visibleSeparator: {
-    // width: '100%',
-    // borderBottom: '1px solid rgba(0 ,0, 0, 0.1)',
     marginBottom: 20
   },
   commentImage: {
@@ -35,8 +32,6 @@ const style = {
 };
 
 function Comments(props) {
-  const dispatch = useDispatch();
-
   const { comments, classes } = props;
   return (
     <Grid container>

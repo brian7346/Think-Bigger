@@ -98,7 +98,7 @@ export const submitCommentAction = (postId, commentData) => async dispatch => {
     type: SUBMIT_COMMENT,
     payload: res.data
   });
-  dispatch(dispatch(clearErrorsAction()));
+  dispatch(clearErrorsAction());
 };
 
 // @action  DELETE /posts/{postId}
@@ -112,6 +112,24 @@ export const deletePostAction = postId => async dispatch => {
     });
   } catch (err) {
     console.log(err);
+  }
+};
+
+// @action  GET /users/{userHandle}
+// @desc   Get user info/ Получить информацию о пользователе
+export const getUserDataAction = userHandle => async dispatch => {
+  dispatch({ type: LOADING_DATA });
+  try {
+    const res = await axios.get(`/user/${userHandle}`);
+    dispatch({
+      type: SET_POSTS,
+      payload: res.data.posts
+    });
+  } catch (err) {
+    dispatch({
+      type: SET_POSTS,
+      payload: []
+    });
   }
 };
 

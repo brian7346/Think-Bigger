@@ -80,8 +80,7 @@ const styles = theme => ({
   progressSpinner: {
     position: 'absolute',
     top: '20%',
-    left: '15%',
-    transform: 'translate(-10%, -10%)'
+    left: '15%'
   }
 });
 

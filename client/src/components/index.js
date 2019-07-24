@@ -11,3 +11,4 @@ export { default as PostDialog } from './PostDialog';
 export { default as LikeButton } from './LikeButton';
 export { default as Comments } from './Comments';
 export { default as CommentForm } from './CommentForm';
+export { default as StaticProfile } from './StaticProfile';

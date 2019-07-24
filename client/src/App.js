@@ -17,7 +17,7 @@ import { Navbar, AuthRoute } from 'components/';
 
 // Pages
 // Страницы
-import { Home, Login, Register } from 'pages/';
+import { Home, Login, Register, User } from 'pages/';
 
 const theme = createMuiTheme(themeFile);
 
@@ -44,6 +44,7 @@ function App() {
           <div className="container">
             <Switch>
               <Route exact path="/" component={Home} />
+              <Route exact path="/users/:handle" component={User} />
               <AuthRoute exact path="/login" component={Login} />
               <AuthRoute exact path="/register" component={Register} />
             </Switch>
