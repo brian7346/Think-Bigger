@@ -1,23 +1,22 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import './App.css';
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
-import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
-import themeFile from 'utils/theme';
 import jwtDecode from 'jwt-decode';
 import { Provider } from 'react-redux';
-import store from './store';
-import { SET_AUTHENTICATED } from 'actions/types';
-import { loginUserAction, getUserData } from 'actions/userActions';
 import axios from 'axios';
 
-// Components
-// Компоненты
-import { Navbar, AuthRoute } from 'components/';
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 
-// Pages
-// Страницы
+import { SET_AUTHENTICATED } from 'actions/types';
+import { loginUserAction, getUserData } from 'actions/userActions';
+import { Navbar, AuthRoute } from 'components/';
 import { Home, Login, Register, User } from 'pages/';
+import store from './store';
+import themeFile from 'utils/theme';
+import './App.css';
+
+axios.defaults.baseURL =
+  'https://europe-west1-socialape-1e623.cloudfunctions.net/api';
 
 const theme = createMuiTheme(themeFile);
 
